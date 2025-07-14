@@ -2,15 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_train_app/select_station_page.dart';
 
 class StationCard extends StatefulWidget {
-  const StationCard({super.key});
+  final String departure;
+  final String arrival;
+  final void Function(String, String) onUpdate;
+
+  const StationCard({
+    super.key,
+    required this.departure,
+    required this.arrival,
+    required this.onUpdate,
+  });
 
   @override
   State<StationCard> createState() => _StationCardState();
 }
 
 class _StationCardState extends State<StationCard> {
-  String departure = '선택';
-  String arrival = '선택';
+  late String departure;
+  late String arrival;
+
+  @override
+  void initState() {
+    super.initState();
+    departure = widget.departure;
+    arrival = widget.arrival;
+  }
 
   Future<void> selectStation(bool isDeparture) async {
     final result = await Navigator.push(
@@ -28,6 +44,8 @@ class _StationCardState extends State<StationCard> {
           arrival = result;
         }
       });
+
+      widget.onUpdate(departure, arrival); // 부모(HomePage)에게 전달
     }
   }
 
@@ -52,7 +70,6 @@ class _StationCardState extends State<StationCard> {
                   const Text('출발역',
                       style: TextStyle(color: Colors.grey, fontSize: 16)),
                   const SizedBox(height: 8),
-                  //
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
@@ -81,7 +98,6 @@ class _StationCardState extends State<StationCard> {
                   const Text('도착역',
                       style: TextStyle(color: Colors.grey, fontSize: 16)),
                   const SizedBox(height: 8),
-                  //
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
