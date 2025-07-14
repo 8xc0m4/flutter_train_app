@@ -28,6 +28,7 @@ class _StationCardState extends State<StationCard> {
     arrival = widget.arrival;
   }
 
+//
   Future<void> selectStation(bool isDeparture) async {
     final result = await Navigator.push(
       context,
@@ -74,21 +75,22 @@ class _StationCardState extends State<StationCard> {
                     fit: BoxFit.scaleDown,
                     child: Text(
                       departure,
-                      style: const TextStyle(fontSize: 40),
+                      style: const TextStyle(
+                          fontSize: 40, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 10),
           Container(
-            height: 50,
+            height: 20,
             width: 2,
             color: Colors.grey[300],
             margin: const EdgeInsets.symmetric(horizontal: 20),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 10),
           Expanded(
             child: GestureDetector(
               onTap: () => selectStation(false),
@@ -102,7 +104,8 @@ class _StationCardState extends State<StationCard> {
                     fit: BoxFit.scaleDown,
                     child: Text(
                       arrival,
-                      style: const TextStyle(fontSize: 40),
+                      style: const TextStyle(
+                          fontSize: 40, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],

@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                 onUpdate: updateStations,
               ),
               const SizedBox(height: 30),
-              Padding(
+              Container(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: SizedBox(
                   width: double.infinity,
