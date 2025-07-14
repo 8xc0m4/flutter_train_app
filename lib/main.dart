@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/home_page.dart';
 
+// 오탈자 조심하기 오탈자 조심하기 오탈자 조심하기 오탈자 조심하기 오탈자 조심하기 오탈자 조심하기 오탈자 조심하기
 // 앱 실행
 void main() {
   runApp(const TrainApp());

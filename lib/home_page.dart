@@ -28,9 +28,9 @@ class HomePage extends StatelessWidget {
           // 자식들을 화면 중앙 정렬
           child: Column(
             // 세로로 자식 위젯들을 배치
-            crossAxisAlignment: CrossAxisAlignment.center, // 가로 방향 중앙 정렬
+            mainAxisAlignment: MainAxisAlignment.center, // 가로 방향 중앙 정렬
             children: [
-              const SizedBox(height: 200), //위쪽 여백
+              const SizedBox(height: 1), //위쪽 여백
               const StationCard(), // 출발역-도착역 선택 카드
               const SizedBox(height: 30), // 카드 아래 여백 30픽셀
               Padding(

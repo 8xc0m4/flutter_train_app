@@ -1,9 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/select_station_page.dart';
 
-class StationCard extends StatelessWidget {
+class StationCard extends StatefulWidget {
   const StationCard({super.key});
 
-  // 화면을 구성
+  @override
+  State<StationCard> createState() => _StationCardState();
+}
+
+class _StationCardState extends State<StationCard> {
+  String departure = '선택';
+  String arrival = '선택';
+
+  Future<void> selectStation(bool isDeparture) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            SelectStationPage(title: isDeparture ? '출발역 선택' : '도착역 선택'),
+      ),
+    );
+    if (result != null && result is String) {
+      setState(() {
+        if (isDeparture) {
+          departure = result;
+        } else {
+          arrival = result;
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,67 +41,56 @@ class StationCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
-      // 가로로 위젯 배치
       child: Row(
-        //crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // 출발역
           Expanded(
-            child: Column(
-              //중앙 정렬
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
-                  '출발역',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+            child: GestureDetector(
+              onTap: () => selectStation(true),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('출발역',
+                      style: TextStyle(color: Colors.grey, fontSize: 16)),
+                  const SizedBox(height: 8),
+                  //
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      departure,
+                      style: const TextStyle(fontSize: 40),
+                    ),
                   ),
-                ),
-                SizedBox(height: 8),
-                Text('선택', style: TextStyle(fontSize: 40)),
-              ],
+                ],
+              ),
             ),
           ),
-
-          //출발역과 가운데 선 사이 간격
-          SizedBox(
-            width: 20,
-            height: 20,
-          ),
-          //가운데 선
+          const SizedBox(width: 20),
           Container(
             height: 50,
             width: 2,
-            color: Colors.grey[300] ?? Colors.grey[400],
-            margin: const EdgeInsets.symmetric(horizontal: 20), // 좌우 여백
+            color: Colors.grey[300],
+            margin: const EdgeInsets.symmetric(horizontal: 20),
           ),
-
-          //출발역과 가운데 선 사이 간격
-          SizedBox(
-            width: 20,
-            height: 20,
-          ),
-
-          // 도착역
+          const SizedBox(width: 20),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
-                  '도착역',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+            child: GestureDetector(
+              onTap: () => selectStation(false),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('도착역',
+                      style: TextStyle(color: Colors.grey, fontSize: 16)),
+                  const SizedBox(height: 8),
+                  //
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      arrival,
+                      style: const TextStyle(fontSize: 40),
+                    ),
                   ),
-                ),
-                SizedBox(height: 8),
-                Text('선택', style: TextStyle(fontSize: 40)),
-              ],
+                ],
+              ),
             ),
           ),
         ],
